@@ -9,20 +9,49 @@
 		
 	//create a car
 
-	function car (make, model, year, plate){
+	function car (make,  year, plate){
 		this.make= make;
-		this.model = model; 
 		this.year= year;
 		this.plate = plate;
 	}
-
-	var vehicle = new car("ford", "f-150", 2017, "1");
-
+	//created an instance of a vehicle
+	var vehicle = new car("ford", 2017, "1");
+	
 	console.log(vehicle);
-	
-	
 
+	//create a collection of cars to park
+	var collectionOfCars = [];
+	var vehicleMakes = ["Ford", "Chevy", "BMW", "Jeep", "Kia"];
+	var vehicleYears = [2000, 2005, 2010, 2015, 2017];
 	
+	for(var i=0; i < 101; i++){
+		var makeIndex = i%vehicleMakes.length;
+		var make = vehicleMakes[makeIndex];
+		var yearIndex = i%vehicleYears.length;
+		var year = vehicleYears[yearIndex];
+		collectionOfCars.push(new car(make, year, i));
+
+	}
+	console.log(collectionOfCars);
+
+	//created an instance of a parking space
+
+	function parkingSpace (space){
+		this.space = space;
+	}
+
+	var parkingSpot = new parkingSpace(1);
+
+	console.log(parkingSpot);
+
+	var collectionOfParkingSpaces = [];
+
+	for(var i=0; i<11; i++){
+		collectionOfParkingSpaces.push(new parkingSpace(i));
+	}
+	console.log(collectionOfParkingSpaces);
+
+
 	</script>
 </body>
 </html>
