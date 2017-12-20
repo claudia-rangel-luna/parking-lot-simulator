@@ -1,57 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Parking Lot Simulator</title>
+    <meta charset="UTF-8">
+    <title>Parking Lot Simulator</title>
 </head>
+
 <body>
-	<script type="text/javascript">
-		
-	//create a car
+    <script type="text/javascript">
+    //create a car
 
-	function car (make,  year, plate){
-		this.make= make;
-		this.year= year;
-		this.plate = plate;
-	}
-	//created an instance of a vehicle
-	var vehicle = new car("ford", 2017, "1");
-	
-	console.log(vehicle);
+    function car(make, year, plate) {
+        this.make = make;
+        this.year = year;
+        this.plate = plate;
+        this.parked = false;
 
-	//create a collection of cars to park
-	var collectionOfCars = [];
-	var vehicleMakes = ["Ford", "Chevy", "BMW", "Jeep", "Kia"];
-	var vehicleYears = [2000, 2005, 2010, 2015, 2017];
-	
-	for(var i=0; i < 101; i++){
-		var makeIndex = i%vehicleMakes.length;
-		var make = vehicleMakes[makeIndex];
-		var yearIndex = i%vehicleYears.length;
-		var year = vehicleYears[yearIndex];
-		collectionOfCars.push(new car(make, year, i));
+    }
+    //created an instance of a vehicle
+    var vehicle = new car("ford", 2017, "1");
 
-	}
-	console.log(collectionOfCars);
+    console.log(vehicle);
 
-	//created an instance of a parking space
+    //create a collection of cars to park
+    var unparkedCars = [];
+    var parkedCars = [];
+    var vehicleMakes = ["Ford", "Chevy", "BMW", "Jeep", "Kia"];
+    var vehicleYears = [2000, 2005, 2010, 2015, 2017];
 
-	function parkingSpace (space){
-		this.space = space;
-	}
+    for (var i = 0; i < 101; i++) {
+        var makeIndex = i % vehicleMakes.length;
+        var make = vehicleMakes[makeIndex];
+        var yearIndex = i % vehicleYears.length;
+        var year = vehicleYears[yearIndex];
+        var parked = false;
+        unparkedCars.push(new car(make, year, i));
 
-	var parkingSpot = new parkingSpace(1);
+    }
+    console.log(unparkedCars);
 
-	console.log(parkingSpot);
+    //created an instance of a parking space
 
-	var collectionOfParkingSpaces = [];
+    function parkingLot(space) {
+        this.space = space;
+        this.vacant = true;
+    }
 
-	for(var i=0; i<11; i++){
-		collectionOfParkingSpaces.push(new parkingSpace(i));
-	}
-	console.log(collectionOfParkingSpaces);
+    var parkingSpot = new parkingLot(1);
 
+    console.log(parkingSpot);
 
-	</script>
+    function parkedCar(car, space) {
+        
+       
+        //park the car
+        car.parked = true;
+        //fill space
+        space.vacant = false;
+        //taking the car out of collectionOfCars
+        unparkedCars.shift();
+        //putting car into collectionofParkedCars
+        parkedCars.push(car);
+    }
+    
+
+    // created a collection of parking spaces
+    var parkingSpaces = [];
+
+    for (var i = 0; i < 10; i++) {
+        
+        parkingSpaces.push(new parkingLot(i));
+    }
+    console.log(parkingSpaces);
+
+    //add one car to the first parking spot
+
+    for (i = 0; i < unparkedCars.length; i++) {
+     
+        for (j = 0; j < parkingSpaces.length; j++) {
+            if (unparkedCars[i].parked === false && parkingSpaces[j].vacant === true) {
+                //parked car
+                parkedCar(unparkedCars[i], parkingSpaces[j], i, j);
+            }
+        }
+    }
+
+   
+    
+    </script>
 </body>
+
 </html>
