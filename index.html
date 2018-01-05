@@ -13,11 +13,19 @@
 	<p> Check it out in the console! </p>
 
 
-
-
-
     <script type="text/javascript">
-    //create a car
+
+    //arrays created
+    var unparkedCars = [];
+    var parkedCars = [];
+
+    var unusedSpaces = [];
+    var usedSpaces = [];
+
+    var vehicleMakes = ["Ford", "Chevy", "BMW", "Jeep", "Kia"];
+    var vehicleYears = [2000, 2005, 2010, 2015, 2017];
+
+    //object constructor for the car
 
     function car(make, year, plate) {
         this.make = make;
@@ -29,13 +37,9 @@
     //created an instance of a vehicle
     var vehicle = new car("ford", 2017, "1");
 
-    // console.log(vehicle);
+    console.log(vehicle);
 
-    //create a collection of cars to park
-    var unparkedCars = [];
-    var parkedCars = [];
-    var vehicleMakes = ["Ford", "Chevy", "BMW", "Jeep", "Kia"];
-    var vehicleYears = [2000, 2005, 2010, 2015, 2017];
+    //for loop to create unparked cars
 
     for (var i = 0; i < 100; i++) {
         var makeIndex = i % vehicleMakes.length;
@@ -56,9 +60,18 @@
         this.car = null;
     }
 
+    //created a parking space
     var parkingSpot = new parkingLot(1);
 
-    // console.log(parkingSpot);
+    console.log(parkingSpot);
+
+    // created a collection of parking spaces
+    for (var i = 0; i < 10; i++) {
+        
+        unusedSpaces.push(new parkingLot(i));
+    }
+
+    //park the car
 
     function parkACar() {
         
@@ -86,22 +99,11 @@
        	}
     }
     
-    // created a collection of parking spaces
-    var unusedSpaces = [];
-    var usedSpaces = [];
-
-    
-
-
-    for (var i = 0; i < 10; i++) {
-        
-        unusedSpaces.push(new parkingLot(i));
-    }
-     
+    //cars to leave parking lot
 
  	function scheduleCarToLeaveParkingLot (car, space){
  		var seconds = getRandomArbitrary(1000, 5000);
- 		// console.log("Scheduling car " + car.plate + " (" + car.make + " - " + car.year + ") to leave in " + seconds + " milliseconds. ")
+ 		
  		setTimeout(function (){
  			car.parked = false;
  			space.vacant = true; 
@@ -119,6 +121,13 @@
  		}, seconds);
  	}
 
+    //set random
+    function getRandomArbitrary(min, max) {
+        
+        return Math.random() * (max - min) + min;
+        
+    }
+    // once no more cars to park end program
  	var intervalId = setInterval(function (){
 		parkACar();
 
@@ -126,16 +135,12 @@
 
 			clearInterval(intervalId);
 
-			console.log("There are no more cars to park.... I'm DONE!!!!!!!!!")
+			console.log("There are no more cars to park!")
 		}
 
  	}, 1000);
  	
- 	function getRandomArbitrary(min, max) {
-		
-		return Math.random() * (max - min) + min;
-		
-	}
+ 	
     </script>
 </body>
 
